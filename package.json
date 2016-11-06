@@ -1,0 +1,10 @@
+{
+  "name": "node-json-rpc2",
+  "description": "A small and easy to use JSON-RPC 2.0 for node.js.",
+  "version": "1.0.0",
+  "main": "./lib/index.js",
+  "keywords": [
+    "json",
+    "rpc"
+  ]
+}
