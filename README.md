@@ -21,7 +21,8 @@ const config = {
     host:'127.0.0.1',//Will be 127.0.0.1 by default
     user:'bitcoin',//Optional, only if auth needed
     password:'local321',//Optional. Can be named 'pass'. Mandatory if user is passed.
-    port:9998//Will be 8443 for https or 8080 for http by default
+    port:9998,//Will be 8443 for https or 8080 for http by default
+    method:'POST'//Optional. POST by default
 };
 var client = new RpcClient(config);
 client.call({
