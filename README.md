@@ -9,13 +9,58 @@ More information [here](https://en.wikipedia.org/wiki/JSON-RPC)
 
 # Usage 
 
+
+
+### Server : 
+
+Protocol supported : http  
+Method supported : POST, GET   
+
+```
+const RpcServer = require('node-json-rpc2').Server;
+const server = new RpcServer({
+    protocol:'http',
+    path:'/',
+    port:80,
+    method:'GET'
+});
+server.addMethod('add', function(parameters, id){
+    return {id:id, error:null, result:parameters[0]+parameters[1]}
+});
+```
+
 ### Client : 
+
+Protocol supported : http, https  
+Method supported : POST, GET  
+
+```
+const RpcClient = require('../lib/index').Client;
+var client = new RpcClient({
+    protocol:'http',//Optional. Will be http by default
+    path:'/',
+    port:80,
+    method:'GET'
+});
+client.call({
+    method:'add',//Mandatory
+    params:[1,2],//Will be [] by default
+},(err, res)=>{
+    if(err){
+        console.log(err);
+        //Do something
+    }
+    console.log('Data:',res);//Json parsed.
+});
+```
+
+### Usage with bitcoind
 
 This is an exemple usage to connect to bitcoind using json rpc
 
 ```
 'use strict';
-const RpcClient = require('node-json-rpc2);
+const RpcClient = require('node-json-rpc2');
 const config = {
     protocol:'http',//Optional. Will be http by default
     host:'127.0.0.1',//Will be 127.0.0.1 by default
@@ -35,23 +80,5 @@ client.call({
        //Do something
     }
     console.log('Data:',res);//Json parsed.
-});
-
-```
-
-### Server : 
-
-```
-'use strict';
-const RpcServer = require('../lib/index').Server;
-const server = new RpcServer({
-    protocol:'http',
-    host:'127.0.0.1',//127.0.0.1 by default
-    path:'/',/// by default
-    port:80,//8080 by default
-    method:'POST'
-});
-server.addMethod('test', function(parameters, id){
-    return {id:id, error:null, params:parameters}
 });
 ```
