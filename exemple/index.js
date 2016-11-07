@@ -2,17 +2,26 @@
 const RpcClient = require('../lib/index').Client;
 const RpcServer = require('../lib/index').Server;
 
+const server = new RpcServer({
+    protocol:'http',
+    path:'/',
+    port:80,
+    method:'GET'
+});
+server.addMethod('add', function(parameters, id){
+    return {id:id, error:null, result:parameters[0]+parameters[1]}
+});
 const config = {
-    protocol:'https',//Optional. Will be http by default
-    host:'gurujsonrpc.appspot.com',//Will be 127.0.0.1 by default
-    path:'/guru',
-    port:443,
-    method:'POST'
+    protocol:'http',//Optional. Will be http by default
+    // host:'gurujsonrpc.appspot.com',//Will be 127.0.0.1 by default
+    path:'/',
+    port:80,
+    method:'GET'
 };
 var client = new RpcClient(config);
 client.call({
-    method:'guru.test',//Mandatory
-    params:['GURU'],//Will be [] by default
+    method:'add',//Mandatory
+    params:[1,2],//Will be [] by default
 },(err, res)=>{
     if(err){
         console.log(err);

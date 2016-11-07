@@ -42,5 +42,16 @@ client.call({
 ### Server : 
 
 ```
-Will come in the next version
+'use strict';
+const RpcServer = require('../lib/index').Server;
+const server = new RpcServer({
+    protocol:'http',
+    host:'127.0.0.1',//127.0.0.1 by default
+    path:'/',/// by default
+    port:80,//8080 by default
+    method:'POST'
+});
+server.addMethod('test', function(parameters, id){
+    return {id:id, error:null, params:parameters}
+});
 ```
